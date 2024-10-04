@@ -19,7 +19,7 @@
                         @click="handleMenuItemClick(key.toString())">
                         <img v-if="String(key) === locale" src="/assets/icons/icon-check.svg" alt="" class="w-5">
                         <img v-else src="/assets/icons/icon-check.svg" alt="" class="w-5 opacity-0">
-                        <img :src="`/src/assets/icons/icon-${key}.svg`" alt="Language icon"
+                        <img :src="`/assets/icons/icon-${key}.svg`" alt="Language icon"
                             class="inline-block w-5 h-5 mr-2 ml-4" />
                         {{ value }}
                     </button>

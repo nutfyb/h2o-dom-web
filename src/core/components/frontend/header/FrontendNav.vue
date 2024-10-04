@@ -266,8 +266,8 @@ onUnmounted(() => {
 .icon-home {
   display: inline-block;
   background-color: currentColor;
-  -webkit-mask-image: url('/src/assets/icons/icon-home.svg');
-  mask-image: url('/src/assets/icons/icon-home.svg');
+  -webkit-mask-image: url('/assets/icons/icon-home.svg');
+  mask-image: url('/assets/icons/icon-home.svg');
   -webkit-mask-size: cover;
   mask-size: cover;
 }
@@ -279,8 +279,8 @@ onUnmounted(() => {
 .icon-user {
   display: inline-block;
   background-color: currentColor;
-  -webkit-mask-image: url('/src/assets/icons/icon-user.svg');
-  mask-image: url('/src/assets/icons/icon-user.svg');
+  -webkit-mask-image: url('/assets/icons/icon-user.svg');
+  mask-image: url('/assets/icons/icon-user.svg');
   -webkit-mask-size: cover;
   mask-size: cover;
 }
@@ -292,8 +292,8 @@ onUnmounted(() => {
 .icon-bag {
   display: inline-block;
   background-color: currentColor;
-  -webkit-mask-image: url('/src/assets/icons/icon-bag.svg');
-  mask-image: url('/src/assets/icons/icon-bag.svg');
+  -webkit-mask-image: url('/assets/icons/icon-bag.svg');
+  mask-image: url('/assets/icons/icon-bag.svg');
   -webkit-mask-size: cover;
   mask-size: cover;
 }
@@ -305,8 +305,8 @@ onUnmounted(() => {
 .icon-newspaper {
   display: inline-block;
   background-color: currentColor;
-  -webkit-mask-image: url('/src/assets/icons/icon-newspaper.svg');
-  mask-image: url('/src/assets/icons/icon-newspaper.svg');
+  -webkit-mask-image: url('/assets/icons/icon-newspaper.svg');
+  mask-image: url('/assets/icons/icon-newspaper.svg');
   -webkit-mask-size: cover;
   mask-size: cover;
 }
