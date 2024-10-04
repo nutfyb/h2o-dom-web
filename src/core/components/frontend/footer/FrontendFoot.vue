@@ -34,14 +34,18 @@
                 <h2 class="mt-12 sm:mt-0 text-md font-semibold text-white uppercase">{{ t('AboutUs') }}</h2>
 
                 <div class="mt-3 grid space-y-3 text-sm">
-                    <p><a class="inline-flex gap-x-2 text-white hover:text-white focus:outline-none focus:text-white"
-                            href="#">{{ t('Home') }}</a></p>
-                    <p><a class="inline-flex gap-x-2 text-white hover:text-white focus:outline-none focus:text-white"
-                            href="#">{{ t('About') }}</a></p>
-                    <p><a class="inline-flex gap-x-2 text-white hover:text-white focus:outline-none focus:text-white"
-                            href="#">{{ t('Services') }}</a></p>
-                    <p><a class="inline-flex gap-x-2 text-white hover:text-white focus:outline-none focus:text-white"
-                            href="#">{{ t('Contact') }}</a></p>
+                    <p><router-link :to="{ path: `/${locale}/` }" @click="scrollToTop"
+                            class="inline-flex gap-x-2 text-white hover:text-white focus:outline-none focus:text-white"
+                            href="#">{{ t('Home') }}</router-link></p>
+                    <p><router-link :to="{ path: `/${locale}/about` }" @click="scrollToTop"
+                            class="inline-flex gap-x-2 text-white hover:text-white focus:outline-none focus:text-white"
+                            href="#">{{ t('About') }}</router-link></p>
+                    <p><router-link :to="{ path: `/${locale}/services` }" @click="scrollToTop"
+                            class="inline-flex gap-x-2 text-white hover:text-white focus:outline-none focus:text-white"
+                            href="#">{{ t('Services') }}</router-link></p>
+                    <p><router-link :to="{ path: `/${locale}/contact` }" @click="scrollToTop"
+                            class="inline-flex gap-x-2 text-white hover:text-white focus:outline-none focus:text-white"
+                            href="#">{{ t('Contact') }}</router-link></p>
                 </div>
 
                 <h2 class="mt-7 text-md font-semibold text-white uppercase">{{ t('FollowUs') }}</h2>
