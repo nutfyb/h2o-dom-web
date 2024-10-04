@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       imageUrls: {
-        homeBanner: "/src/assets/images/image-hero-content-1.webp",
+        homeBanner: "/assets/images/image-hero-content-1.webp",
       },
     }
   }

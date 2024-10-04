@@ -10,12 +10,12 @@
                     <p class=" w-96">{{ $t('COMPANY_ADDRESS') }}</p>
                     <br>
                     <div>
-                        <img src="/src/assets/icons/icon-phone.svg" class="inline w-4 h-4 text-white" alt="">
+                        <img src="/assets/icons/icon-phone.svg" class="inline w-4 h-4 text-white" alt="">
                         <a href="tel:0652377015" class="ml-2">+66 652377015</a>
                     </div>
                     <div class="h-2"></div>
                     <div>
-                        <img src="/src/assets/icons/icon-email.svg" class="inline w-4 h-4 text-white" alt="">
+                        <img src="/assets/icons/icon-email.svg" class="inline w-4 h-4 text-white" alt="">
                         <a href="mailto:anuthep.tayngam@gmail.com" class="ml-2">anuthep.tayngam@gmail.com</a>
                     </div>
                     <br>
@@ -120,18 +120,6 @@ const { t, locale } = useI18n({
     inheritLocale: true,
     useScope: 'global'
 })
-</script>
-
-<script lang="ts" defer>
-export default {
-    data() {
-        return {
-            imageUrls: {
-                background: "/assets/img/bg-footer.webp",
-            },
-        }
-    }
-}
 </script>
 
 <style scoped>

@@ -80,10 +80,10 @@ export default {
     data() {
         return {
             imageUrls: {
-                roomSection: "/src/assets/images/image-section-1.webp",
-                iconWashingMachine: "/src/assets/icons/icons-washing-machine.svg",
-                iconVideSecurity: "/src/assets/icons/icon-viideo-security-filled.svg",
-                iconCarbonClean: "/src/assets/icons/icon-carbon-clean.svg",
+                roomSection: "/assets/images/image-section-1.webp",
+                iconWashingMachine: "/assets/icons/icons-washing-machine.svg",
+                iconVideSecurity: "/assets/icons/icon-viideo-security-filled.svg",
+                iconCarbonClean: "/assets/icons/icon-carbon-clean.svg",
             },
         }
     }

@@ -1,6 +1,6 @@
 <template>
     <button class="animate-bounce scroll-to-top bg-gradient-to-r from-blue-500/70 to-purple-500/40" v-if="showButton" @click="scrollToTop">
-        <img src="/src/assets/icons/icon-arrow-up.svg" class="inline w-6 h-6 text-white" alt="">
+        <img src="/assets/icons/icon-arrow-up.svg" class="inline w-6 h-6 text-white" alt="">
     </button>
   </template>
   

@@ -41,7 +41,7 @@ export default {
     data() {
         return {
             imageUrls: {
-                roomCard: "/src/assets/images/room-empty.webp",
+                roomCard: "/assets/images/room-empty.webp",
             },
         }
     }

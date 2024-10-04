@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       imageUrls: {
-        homeBanner: "/src/assets/images/image-hero-content-2.webp",
+        homeBanner: "/assets/images/image-hero-content-2.webp",
       },
     }
   }
