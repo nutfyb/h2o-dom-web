@@ -6,101 +6,118 @@ function lazyLoad(view: string) {
 }
 
 const routes: Array<RouteRecordRaw> = [
-    // Frontend Route
-    {
-        // เรียกตัว Frontend Layout (แม่)
-        path: '/:locale?',
-        name: 'Frontend',
-        component: FrontendLayout,
-        
-        // เรียกตัวลูกมาใส่
-        children: [
-            { path: '/:pathMatch(.*)*', name: 'NotFound', component: lazyLoad("HomeView") },
+	// Frontend Route
+	{
+		// เรียกตัว Frontend Layout (แม่)
+		path: '/:locale?',
+		name: 'Frontend',
+		component: FrontendLayout,
 
-            {
-                path: '',
-                name: 'Home',
-                component: lazyLoad("HomeView"),
-                meta: {
-                    title: 'H2O DOM – The best dormitory booking system',
-                    header: 'headline'
-                }
-            },
-            {
-                path: 'about',
-                name: 'About',
-                component: lazyLoad("AboutView"),
-                meta: {
-                    title: 'About – H2O DOM – The best dormitory booking system'
-                }
-            },
-            {
-                path: 'services',
-                name: 'Services',
-                component: lazyLoad("ServicesView"),
-                meta: {
-                    title: 'Services – H2O DOM – The best dormitory booking system'
-                }
-            },
-            {
-                path: 'contact',
-                name: 'Contact',
-                component: lazyLoad("ContactView"),
-                meta: {
-                    title: 'Contact – H2O DOM – The best dormitory booking system'
-                }
-            },
-            {
-                path: 'login',
-                name: 'Login',
-                component: lazyLoad("LoginView"),
-                meta: {
-                    title: 'Login – H2O DOM – The best dormitory booking system'
-                }
-            },
-            {
-                path: 'register',
-                name: 'Register',
-                component: lazyLoad("RegisterView"),
-                meta: {
-                    title: 'Register – H2O DOM – The best dormitory booking system'
-                }
-            },
-            {
-                path: 'forgotPassword',
-                name: 'ForgotPassword',
-                component: lazyLoad("ForgotPasswordView"),
-                meta: {
-                    title: 'Forgot Password – H2O DOM – The best dormitory booking system'
-                }
-            },
-            {
-                path: 'roomDetail/:id',
-                name: 'RoomDetail',
-                component: lazyLoad("RoomDetailView"),
-                meta: {
-                    title: 'Forgot Password – H2O DOM – The best dormitory booking system'
-                }
-            },
-        ]
-    },
+		// เรียกตัวลูกมาใส่
+		children: [
+			{
+				path: '/:pathMatch(.*)*',
+				name: 'NotFound',
+				component: lazyLoad('HomeView'),
+			},
 
+			{
+				path: '',
+				name: 'Home',
+				component: lazyLoad('HomeView'),
+				meta: {
+					title: 'H2O DOM – The best dormitory booking system',
+					header: 'headline',
+				},
+			},
+			{
+				path: 'about',
+				name: 'About',
+				component: lazyLoad('AboutView'),
+				meta: {
+					title: 'About – H2O DOM – The best dormitory booking system',
+				},
+			},
+			{
+				path: 'services',
+				name: 'Services',
+				component: lazyLoad('ServicesView'),
+				meta: {
+					title: 'Services – H2O DOM – The best dormitory booking system',
+				},
+			},
+			{
+				path: 'contact',
+				name: 'Contact',
+				component: lazyLoad('ContactView'),
+				meta: {
+					title: 'Contact – H2O DOM – The best dormitory booking system',
+				},
+			},
+			{
+				path: 'login',
+				name: 'Login',
+				component: lazyLoad('LoginView'),
+				meta: {
+					title: 'Login – H2O DOM – The best dormitory booking system',
+				},
+			},
+			{
+				path: 'register',
+				name: 'Register',
+				component: lazyLoad('RegisterView'),
+				meta: {
+					title: 'Register – H2O DOM – The best dormitory booking system',
+				},
+			},
+			{
+				path: 'forgotPassword',
+				name: 'ForgotPassword',
+				component: lazyLoad('ForgotPasswordView'),
+				meta: {
+					title: 'Forgot Password – H2O DOM – The best dormitory booking system',
+				},
+			},
+			{
+				path: 'roomDetail/:id',
+				name: 'RoomDetail',
+				component: lazyLoad('RoomDetailView'),
+				meta: {
+					title: 'Forgot Password – H2O DOM – The best dormitory booking system',
+					requiresAuth: true,
+					requiresSub: false,
+				},
+			},
+		],
+	},
 ]
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.URL),
-    routes
+	history: createWebHistory(import.meta.env.URL),
+	routes,
 })
 
 // การเรียกทำงานก่อนที่ route จะโหลด
 router.beforeEach((to, _, next) => {
-    
-    if(typeof(to.meta.title) == 'string'){
-        document.title = to.meta.title
-    }
+	if (typeof to.meta.title == 'string') {
+		document.title = to.meta.title
+	}
 
-    next()
+	// next()
 
+    // ตรวจสอบว่าหน้านี้ต้องการการล็อกอินหรือไม่
+	if (to.meta.requiresAuth) {
+		const token = localStorage.getItem('token'); // ดึง JWT token จาก localStorage
+
+		// ถ้าไม่มี token ให้ redirect ไปหน้า login
+		if (!token) {
+			next({ name: 'Login' });
+		} else {
+			next(); // ถ้ามี token ให้ไปต่อ
+		}
+	} else {
+		next(); // ถ้าไม่ต้องการล็อกอินให้ไปต่อได้เลย
+	}
 })
 
 export default router
