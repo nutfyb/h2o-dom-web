@@ -10,10 +10,39 @@
         <!-- Button Group -->
         <div class="flex flex-wrap items-center gap-x-1.5">
           <router-link :to="{ path: `/${locale}/login` }" @click="scrollToTop">
-            <p
+            <p v-if="!isLoggedIn"
               class="py-2 px-2.5 inline-flex items-center font-medium text-[12px] rounded-lg bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
               {{ t('SignIn') }}</p>
           </router-link>
+
+          <div v-if="isLoggedIn" @click.self="toggleProfile" @click="toggleProfile"
+            class="relative inline-block font-medium text-sm pr-5 py-2.5 text-center items-center rounded-lg cursor-pointer border px-4">
+            <div class="flex items-center justify-center space-x-2">
+              <img src="https://avatars.githubusercontent.com/u/56430739?v=4&size=64" alt="User Image"
+                class="w-8 h-8 rounded-full border-2 border-white object-cover">
+              <p class="text-sm font-medium">John Doe</p>
+            </div>
+            <div :class="isDropdownOpen ? 'block' : 'hidden'"
+              class="absolute left-1/2 transform -translate-x-1/2 mt-2 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44 dark:bg-gray-700">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My
+                    Account</a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                </li>
+                <li>
+                  <p @click="handleLogout"
+                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+
+
         </div>
         <!-- End Button Group -->
       </div>
@@ -99,7 +128,7 @@
             role="dialog" tabindex="-1">
             <div class="flex justify-between items-center py-3 px-4 border-b">
               <h3 id="hs-header-base-drawer-label" class="font-bold text-gray-800">
-                Drawer title
+                {{ t('Menu') }}
               </h3>
               <button type="button"
                 class="inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200"
@@ -156,12 +185,32 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n';
 import LanguageSwitcher from '@/core/components/frontend/header/LanguageSwitcher.vue'
+import { useAuthStore } from '@/core/store/auth';
+import router from '@/core/router';
 // import CompanyLogo from '../components/CompanyLogo.vue';
 
 const showMenu = ref(true);
 const previousScrollPosition = ref();
 const navTopScroll = ref(true);
 const showMenuPopup = ref(false);
+const isDropdownOpen = ref(false);
+const authStore = useAuthStore();
+const isLoggedIn = authStore.isLoggedIn;
+
+
+const handleLogout = async () => {
+  const authStore = useAuthStore();
+
+  try {
+    authStore.logout();
+
+    await router.replace({ name: 'Login' });
+
+    window.location.reload();
+  } catch (error) {
+    console.error('Logout failed', error);
+  }
+};
 
 // Function to toggle the drawer
 const toggleOffcanvas = () => {
@@ -183,6 +232,20 @@ const handleResize = () => {
 };
 
 
+const toggleMenu = () => {
+  showMenuPopup.value = !showMenuPopup.value;
+};
+
+const toggleProfile = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+}
+
+const handleClickOutside = (event: MouseEvent) => {
+  const dropdown = document.querySelector('.relative.inline-block');
+  if (dropdown && !dropdown.contains(event.target as Node)) {
+    isDropdownOpen.value = false;
+  }
+}
 
 // call function useI18n
 const { t, locale } = useI18n({
@@ -194,12 +257,6 @@ const { t, locale } = useI18n({
 const scrollToTop = () => {
   window.scrollTo(0, 0);
   showMenuPopup.value = false;
-}
-
-
-// Method Toggle Menu
-const toggleMenu = () => {
-  showMenuPopup.value = !showMenuPopup.value;
 }
 
 const handleScroll = () => {
@@ -235,11 +292,13 @@ onMounted(() => {
   window.addEventListener('scroll', handleScroll);
   window.addEventListener('scroll', navTop);
   window.addEventListener('resize', handleResize);
+  document.addEventListener('click', handleClickOutside);
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
   window.removeEventListener('resize', handleResize);
+  document.removeEventListener('click', handleClickOutside);
 })
 
 </script>

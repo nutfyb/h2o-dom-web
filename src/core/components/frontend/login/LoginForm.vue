@@ -1,12 +1,12 @@
 <template>
     <!-- Form -->
-    <form>
+    <form @submit="onSubmit">
         <div class="grid gap-y-4">
             <!-- Form Group -->
             <div>
                 <label for="email" class="block text-sm mb-2">{{ t('EmailAddress') }}</label>
                 <div class="relative">
-                    <input type="email" id="email" name="email"
+                    <input v-model="username" type="username" id="username" name="username"
                         class="py-3 px-4 block w-full border rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                         required aria-describedby="email-error">
                 </div>
@@ -17,10 +17,12 @@
             <div>
                 <div class="flex justify-between items-center">
                     <label for="password" class="block text-sm mb-2">{{ t('Password') }}</label>
-                    <router-link :to="{ path: `/${locale}/forgotPassword` }" class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium">{{ t('ForgotPasswordSymbol') }}</router-link>
+                    <router-link :to="{ path: `/${locale}/forgotPassword` }"
+                        class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium">{{
+                            t('ForgotPasswordSymbol') }}</router-link>
                 </div>
                 <div class="relative">
-                    <input type="password" id="password" name="password"
+                    <input v-model="password" type="password" id="password" name="password"
                         class="py-3 px-4 block w-full border rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                         required aria-describedby="password-error">
                 </div>
@@ -48,12 +50,31 @@
 </template>
 
 <script setup lang="ts" defer>
+import { login } from '@/api/auth';
+import router from '@/core/router';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t, locale } = useI18n({
     inheritLocale: true,
     useScope: 'global'
 })
+
+const username = ref('nut');
+const password = ref('123Za@');
+
+const onSubmit = async (event: Event) => {
+    event.preventDefault();
+    try {
+        const data = await login(username.value, password.value);
+        localStorage.setItem('token', data.token);
+        await router.replace({ name: 'Home' }); 
+        window.location.reload();
+    } catch (error) {
+        console.error('Login failed', error);
+    }
+};
+
 </script>
 
 <style scoped></style>
