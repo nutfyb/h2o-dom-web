@@ -9,9 +9,12 @@ import i18n from '@/core/plugins/i18n';
 import router from '@/core/router'
 
 import VueLazyload from 'vue-lazyload';
+import { createPinia } from 'pinia';
 
 
 const app = createApp(App)
+const pinia = createPinia()
+app.use(pinia)
 app.use(i18n)
 app.use(router)
 

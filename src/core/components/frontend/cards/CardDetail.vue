@@ -1,6 +1,6 @@
 <template>
     <router-link :to="{ path: `/${locale}/roomDetail/1` }" @click="scrollToTop"
-        class="group flex flex-col focus:outline-none bg-secondary px-2 py-2 rounded-xl w-72 h-[22rem]" href="#">
+        class="flex flex-col focus:outline-none bg-secondary px-2 py-2 rounded-xl w-72 md:w-56 lg:w-72 h-auto" href="#">
         <div class="relative pt-[50%] sm:pt-[70%] rounded-xl overflow-hidden">
             <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 group-focus:scale-105 transition-transform duration-500 ease-in-out rounded-xl"
                 v-lazy="imageUrls.roomCard" alt="Blog Image">
